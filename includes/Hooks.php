@@ -17,28 +17,41 @@
  * @file
  */
 
-namespace MediaWiki\Extension\xsl;
 
-use Parser;
-
-class Hooks {
+class XSLExtensionHooks {
 	
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
 	 * 
 	 */
 	public static function onParserFirstCallInit ( Parser $parser ) {
-		$parser->setHook( 'xsl', [self::class, 'xsl_render' ] );
+		// $parser->setHook( 'xsl', [self::class, 'xsl_render' ] );
+		$parser->setHook( 'xsl', [self::class, 'renderExample' ] );
+		return true;
 	}	
+
+
+	public static function renderExample( Parser $parser, $param1 = '', $param2 = '', $param3 = '' ) {
+		$parser->disableCache();
+		
+		$options = extractOptions( array_slice(func_get_args(), 1) );
+		// The input parameters are wikitext with templates expanded.
+		// The output should be wikitext too.
+		$output = "param1 is $param1 and param2 is $param2 and param3 is $param3";
+  
+		return $output;
+	 }
+
 
 	#parser hook callback function
 	public static function xsl_render( &$parser, $xsl, $xml, $parse=true, $nocache=false ) {
-		return "Hello World";
+
 		if ($nocache) {
 			$parser->disableCache();
 		}
+		return "Hello World";
 
-		$output = Hooks::xsl_transform( $xsl, $xml );
+		$output = XSLExtensionHooks::xsl_transform( $xsl, $xml );
 		
 		if ($parse == false) {
 			return array($output, 'noparse' => true, 'isHTML' => true);
@@ -60,4 +73,36 @@ class Hooks {
 		return $xsl->transformToXML($doc);
 	}
 
+}
+
+/**
+ * Converts an array of values in form [0] => "name=value" into a real
+ * associative array in form [name] => value. If no = is provided,
+ * true is assumed like this: [name] => true
+ *
+ * @param array string $options
+ * @return array $results
+ */
+function extractOptions( array $options ) {
+	$results = array();
+
+	foreach ( $options as $option ) {
+		$pair = explode( '=', $option, 2 );
+		if ( count( $pair ) === 2 ) {
+			$name = trim( $pair[0] );
+			$value = trim( $pair[1] );
+			$results[$name] = $value;
+		}
+
+		if ( count( $pair ) === 1 ) {
+			$name = trim( $pair[0] );
+			$results[$name] = true;
+		}
+	}
+	//Now you've got an array that looks like this:
+	//  [foo] => "bar"
+	//	[apple] => "orange"
+	//	[banana] => true
+
+	return $results;
 }

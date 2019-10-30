@@ -10,16 +10,11 @@
 	"requires": {
 		"MediaWiki": ">= 1.32.0"
 	},
-	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\xsl\\": "includes/"
-	},
 	"AutoloadClasses": {
-		"Hooks": "includes/Hooks.php"
-	},
-	"config": {
+		"XSLExtensionHooks": "includes/Hooks.php"
 	},
 	"Hooks": {
-		"ParserFirstCallInit": "MediaWiki\\Extension\\xsl\\Hooks::onParserFirstCallInit"
+		"ParserFirstCallInit": "XSLExtensionHooks::onParserFirstCallInit"
 	},
 	"MessagesDirs": {
 		"XSL": [
@@ -34,12 +29,6 @@
 		"remoteExtPath": "XSL/resources"
 	},
 	"ResourceModules": {
-		"ext.xsl": {
-			"dependencies": [],
-			"messages": [],
-			"styles": [],
-			"scripts": []
-		}
 	},
 	"manifest_version": 2
 }
