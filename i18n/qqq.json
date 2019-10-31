@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Your Name"
+			"Greg Rundlett"
 		]
 	},
-	"boilerplate-desc": "{{desc|name=Boilerplate|url=https://www.mediawiki.org/wiki/Extension:Boilerplate}}"
+	"xsl-desc": "{{desc|name=XSL|url=https://www.mediawiki.org/wiki/Extension:XSL}}"
 }

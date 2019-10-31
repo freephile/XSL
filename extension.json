@@ -1,34 +1,24 @@
 {
-	"name": "XSL",
-	"author": [
-		"Greg Rundlett https://equality-tech.com"
- 	],
+	"name": "XSLExtension",
+	"author": "Greg Rundlett https://equality-tech.com",
+	"version": "2.0.0",
 	"url": "https://www.mediawiki.org/wiki/Extension:XSL",
 	"descriptionmsg": "xsl-desc",
-	"license-name": "GPL-3.0-or-later",
+	"license-name": "GPL-2.0-or-later",
 	"type": "parserhook",
-	"requires": {
-		"MediaWiki": ">= 1.32.0"
+	"MessagesDirs": {
+		"XSLExtension": [
+			"i18n"
+		]
 	},
 	"AutoloadClasses": {
-		"XSLExtensionHooks": "includes/Hooks.php"
+		"XSLExtensionHooks": "src/XSLExtensionHooks.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "XSLExtensionHooks::onParserFirstCallInit"
 	},
-	"MessagesDirs": {
-		"XSL": [
-			"i18n"
-		]
-	},
-	"ExtensionMessageFiles": {
-		"XSLMagic": "XSL.i18n.magic.php"
-	},
-	"ResourceFileModulePaths": {
-		"localBasePath": "resources",
-		"remoteExtPath": "XSL/resources"
-	},
-	"ResourceModules": {
+	"ExtensionMessagesFiles": {
+		"XSLExtensionMagic": "XSLExtension.i18n.php"
 	},
 	"manifest_version": 2
 }
